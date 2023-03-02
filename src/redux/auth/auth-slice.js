@@ -1,5 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { login, register } from './auth-oparation';
+import { login, register, refresh } from './auth-oparation';
+
+import storage from 'redux-persist/lib/storage';
+import { persistReducer } from 'redux-persist';
+
+const persistConfig = {
+  key: 'token',
+  whitelist: ['token'],
+  storage,
+};
 
 let initialState = {
   user: { username: null, email: null },
@@ -41,10 +50,13 @@ const authSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.error = action.payload;
+      })
+      // refreh
+      .addCase(refresh.fulfilled, (state, action) => {
+        state.user = { ...action.payload };
+        state.isLoggedIn = true;
       });
   },
 });
 
-const { reducer } = authSlice;
-
-export default reducer;
+export const authReducer = persistReducer(persistConfig, authSlice.reducer);

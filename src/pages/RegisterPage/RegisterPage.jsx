@@ -42,7 +42,7 @@ export default function RegisterPage() {
           <span>Email</span>
         </label>
         <label>
-          <Field type="password" name="password" />
+          <Field type="password" name="password" autoComplete="true" />
           <span>Password</span>
         </label>
         <button type="submit">Register</button>
