@@ -10,11 +10,6 @@ let initialState = {
 const newsSlice = createSlice({
   name: 'news',
   initialState,
-  reducers: {
-    resetNew(state) {
-      state.items = [];
-    },
-  },
   extraReducers: builder => {
     builder
       .addCase(news.pending, state => {

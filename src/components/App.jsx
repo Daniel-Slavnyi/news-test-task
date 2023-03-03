@@ -12,14 +12,17 @@ import RegisterPage from 'pages/RegisterPage/RegisterPage';
 import LoginPage from 'pages/LoginPage/LoginPage';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { theme } from 'style/theme';
+import { news } from 'redux/news/news-oparation';
 
 export const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(refresh());
+    dispatch(news());
   }, [dispatch]);
 
+  console.log('im APP');
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
