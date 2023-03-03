@@ -10,6 +10,8 @@ import NewsPage from 'pages/NewsPage/NewsPage';
 import ProfilePage from 'pages/ProfilePage/ProfilePage';
 import RegisterPage from 'pages/RegisterPage/RegisterPage';
 import LoginPage from 'pages/LoginPage/LoginPage';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { theme } from 'style/theme';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -19,7 +21,8 @@ export const App = () => {
   }, [dispatch]);
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
@@ -33,6 +36,6 @@ export const App = () => {
           </Route>
         </Route>
       </Routes>
-    </>
+    </ThemeProvider>
   );
 };

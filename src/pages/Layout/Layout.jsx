@@ -1,20 +1,11 @@
+import Header from 'components/Header/Header';
 import React from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 export default function Layout() {
   return (
     <>
-      <header>
-        <nav>
-          <ul>
-            <li>{<NavLink to="/">Home</NavLink>}</li>
-            <li>{<NavLink to="/news">News</NavLink>}</li>
-            <li>{<NavLink to="/profile">Profile</NavLink>}</li>
-            <li>{<NavLink to="/auth/register">Register</NavLink>}</li>
-            <li>{<NavLink to="/auth/login">Login</NavLink>}</li>
-          </ul>
-        </nav>
-      </header>
+      <Header />
       <main>{<Outlet />}</main>
     </>
   );

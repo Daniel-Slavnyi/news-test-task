@@ -6,7 +6,7 @@ export const getNews = async (numOfPage = 1) => {
     sortBy: 'popularity',
     apiKey: '514c0f41e9e7409b90b4595e08780d51',
     page: `${numOfPage}`,
-    pageSize: 20,
+    pageSize: 10,
   };
 
   try {
