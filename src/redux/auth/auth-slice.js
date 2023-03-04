@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { login, register, refresh } from './auth-oparation';
+import { login, register, refresh, logout } from './auth-oparation';
 
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
@@ -55,6 +55,12 @@ const authSlice = createSlice({
       .addCase(refresh.fulfilled, (state, action) => {
         state.user = { ...action.payload };
         state.isLoggedIn = true;
+      })
+      // logout
+      .addCase(logout.fulfilled, state => {
+        state.user = { name: null, email: null };
+        state.token = null;
+        state.isLoggedIn = false;
       });
   },
 });

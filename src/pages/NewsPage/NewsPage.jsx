@@ -1,9 +1,4 @@
-import {
-  Button,
-  CircularProgress,
-  Container,
-  Grid,
-} from '@mui/material';
+import { Button, CircularProgress, Container, Grid } from '@mui/material';
 import ItemsNews from 'components/ItemsNews/ItemsNews';
 import React, { useState } from 'react';
 
@@ -13,6 +8,7 @@ import { getIsLoading, getListOfNews } from 'redux/news/news-selector';
 
 export default function NewsPage() {
   const [numberOfPage, setNumberOfPage] = useState(1);
+
   const dispatch = useDispatch();
   const isLoading = useSelector(getIsLoading);
   const listOfNews = useSelector(getListOfNews);
@@ -25,10 +21,11 @@ export default function NewsPage() {
   return (
     <>
       <Container>
-        <Grid container spacing={2}></Grid>
-        {listOfNews.map(item => (
-          <ItemsNews item={item} />
-        ))}
+        <Grid container spacing={2}>
+          {listOfNews.map(item => (
+            <ItemsNews key={item.url} item={item} />
+          ))}
+        </Grid>
         <Button
           fullWidth
           variant="contained"

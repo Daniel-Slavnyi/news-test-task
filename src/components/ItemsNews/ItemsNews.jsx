@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Card,
   CardActionArea,
@@ -9,10 +9,21 @@ import {
 } from '@mui/material';
 
 export default function ItemsNews({ item }) {
+  const [isCardClicked, setIsCardClicked] = useState(true);
+
+  const handleCardClick = () => {
+    setIsCardClicked(!isCardClicked);
+  };
+
+  const typographyStyle = {
+    textOverflow: isCardClicked ? 'ellipsis' : 'unset',
+    whiteSpace: isCardClicked ? 'nowrap' : 'unset',
+    overflow: isCardClicked ? 'hidden' : 'unset',
+  };
   return (
-    <Grid item key={item.url} xs={12} sm={6} md={4}>
+    <Grid item xs={12} sm={6} md={4}>
       <Card sx={{ maxWidth: 345 }}>
-        <CardActionArea>
+        <CardActionArea onClick={handleCardClick}>
           <CardMedia
             component="img"
             height="140"
@@ -20,11 +31,20 @@ export default function ItemsNews({ item }) {
             alt="green iguana"
           />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="div"
+              sx={typographyStyle}
+            >
               {item.title}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {item.description}
+            <Typography
+              sx={typographyStyle}
+              variant="body2"
+              color="text.secondary"
+            >
+              <b>Description:</b> {item.description}
             </Typography>
           </CardContent>
         </CardActionArea>

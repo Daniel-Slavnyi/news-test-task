@@ -11,26 +11,46 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { isLogedIn } from 'redux/auth/auth-selector';
+import { logout } from 'redux/auth/auth-oparation';
+
+import { useTranslation } from 'react-i18next';
+import i18n from '../../services/i18next';
+
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { changeTheme } from 'redux/theme/theme-slice';
+import { getChangedTheme } from 'redux/theme/theme-selector';
 
 const pages = [
   {
-    name: 'Home',
+    name: 'home',
     link: '/',
   },
   {
-    name: 'News',
+    name: 'news',
     link: '/news',
   },
-  { name: 'Profile', link: '/profile' },
+  { name: 'profile', link: '/profile' },
+];
+
+const authLink = [
   {
-    name: 'Login',
+    name: 'login',
     link: '/auth/login',
   },
-  { name: 'Register', link: '/auth/register' },
+  { name: 'register', link: '/auth/register' },
 ];
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+
+  const dispatch = useDispatch();
+  const isLogdeIn = useSelector(isLogedIn);
+  const theme = useSelector(getChangedTheme);
+
+  const { t } = useTranslation();
 
   const handleOpenNavMenu = event => {
     setAnchorElNav(event.currentTarget);
@@ -38,6 +58,14 @@ function Header() {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+  };
+
+  const handleExitFromProfile = () => {
+    dispatch(logout());
+  };
+
+  const toggleColorMode = () => {
+    dispatch(changeTheme());
   };
 
   return (
@@ -63,6 +91,22 @@ function Header() {
             LOGO
           </Typography>
 
+          <IconButton sx={{ ml: 1 }} onClick={toggleColorMode} color="inherit">
+            {theme ? <Brightness7Icon /> : <Brightness4Icon />}
+          </IconButton>
+
+          <Button
+            sx={{ color: 'white' }}
+            onClick={() => i18n.changeLanguage('en')}
+          >
+            English
+          </Button>
+          <Button
+            sx={{ color: 'white' }}
+            onClick={() => i18n.changeLanguage('uk')}
+          >
+            Українська
+          </Button>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -94,8 +138,29 @@ function Header() {
             >
               {pages.map(page => (
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                  <Typography component={Link} textAlign="center">
-                    {page.name}
+                  <Typography
+                    sx={{
+                      color: !theme ? 'white' : 'black',
+                      textDecoration: 'none',
+                    }}
+                    component={Link}
+                    textAlign="center"
+                  >
+                    {t(page.name)}
+                  </Typography>
+                </MenuItem>
+              ))}
+              {authLink.map(page => (
+                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                  <Typography
+                    sx={{
+                      color: !theme ? 'white' : 'black',
+                      textDecoration: 'none',
+                    }}
+                    component={Link}
+                    textAlign="center"
+                  >
+                    {t(page.name)}
                   </Typography>
                 </MenuItem>
               ))}
@@ -129,9 +194,31 @@ function Header() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page.name}
+                {t(page.name)}
               </Button>
             ))}
+          </Box>
+          <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
+            {!isLogdeIn ? (
+              authLink.map(page => (
+                <Button
+                  component={Link}
+                  to={page.link}
+                  key={page.name}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {t(page.name)}
+                </Button>
+              ))
+            ) : (
+              <Button
+                onClick={handleExitFromProfile}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                {t('logout')}
+              </Button>
+            )}
           </Box>
         </Toolbar>
       </Container>
