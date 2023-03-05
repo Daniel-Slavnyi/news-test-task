@@ -17,7 +17,7 @@ const newsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(news.fulfilled, (state, action) => {
-        state.items = [...state.items, ...action.payload.articles];
+        state.items = [...state.items, ...action.payload];
         state.isLoading = false;
       })
       .addCase(news.rejected, (state, action) => {

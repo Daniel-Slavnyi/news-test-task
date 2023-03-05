@@ -3,7 +3,6 @@ import {
   Card,
   CardActionArea,
   CardContent,
-  CardMedia,
   Grid,
   Typography,
 } from '@mui/material';
@@ -24,12 +23,6 @@ export default function ItemsNews({ item }) {
     <Grid item xs={12} sm={6} md={4}>
       <Card sx={{ maxWidth: 345 }}>
         <CardActionArea onClick={handleCardClick}>
-          <CardMedia
-            component="img"
-            height="140"
-            image={item.urlToImage}
-            alt="green iguana"
-          />
           <CardContent>
             <Typography
               gutterBottom
@@ -44,7 +37,7 @@ export default function ItemsNews({ item }) {
               variant="body2"
               color="text.secondary"
             >
-              <b>Description:</b> {item.description}
+              <b>Description:</b> {item.body}
             </Typography>
           </CardContent>
         </CardActionArea>

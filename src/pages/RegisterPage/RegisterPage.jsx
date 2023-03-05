@@ -1,8 +1,12 @@
 import { Formik, Form, Field } from 'formik';
-import { TextField, Button, Container } from '@mui/material';
+import { TextField, Button, Container, Alert } from '@mui/material';
 import * as Yup from 'yup';
 import { register } from 'redux/auth/auth-oparation';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+import Stack from '@mui/material/Stack';
+import Snackbar from '@mui/material/Snackbar';
+import { getStatusOfMessage } from 'redux/auth/auth-selector';
 
 const schema = Yup.object().shape({
   name: Yup.string().required(),
@@ -18,6 +22,7 @@ const initialValues = {
 
 export default function RegisterPage() {
   const dispatch = useDispatch();
+  const statusOfMessage = useSelector(getStatusOfMessage);
 
   const handleSubmit = (values, { resetForm }) => {
     dispatch(register(values));
@@ -92,43 +97,13 @@ export default function RegisterPage() {
           </Form>
         )}
       </Formik>
+      <Stack spacing={2} sx={{ width: '100%' }}>
+        <Snackbar open={statusOfMessage} autoHideDuration={3000}>
+          <Alert severity="error" sx={{ width: '100%' }}>
+            This user alredy register in the APP!
+          </Alert>
+        </Snackbar>
+      </Stack>
     </Container>
   );
 }
-
-// import React from 'react';
-// import { useDispatch } from 'react-redux';
-
-// import { Formik, Form, Field } from 'formik';
-
-// export default function RegisterPage() {
-
-//   const handleSubmit = (values, { resetForm }) => {
-//     dispatch(register(values));
-//     resetForm();
-//   };
-
-//   return (
-//     <Formik
-//       initialValues={initialValues}
-//       onSubmit={handleSubmit}
-//       validationSchema={schema}
-//     >
-//       <Form>
-//         <label>
-//           <Field type="text" name="name" />
-//           <span>Name</span>
-//         </label>
-//         <label>
-//           <Field type="email" name="email" />
-//           <span>Email</span>
-//         </label>
-//         <label>
-//           <Field type="password" name="password" autoComplete="true" />
-//           <span>Password</span>
-//         </label>
-//         <button type="submit">Register</button>
-//       </Form>
-//     </Formik>
-//   );
-// }

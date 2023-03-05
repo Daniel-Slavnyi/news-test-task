@@ -1,4 +1,8 @@
 import * as React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -10,16 +14,14 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+
 import { isLogedIn } from 'redux/auth/auth-selector';
 import { logout } from 'redux/auth/auth-oparation';
 
-import { useTranslation } from 'react-i18next';
 import i18n from '../../services/i18next';
 
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { changeTheme } from 'redux/theme/theme-slice';
 import { getChangedTheme } from 'redux/theme/theme-selector';
 
@@ -95,18 +97,6 @@ function Header() {
             {theme ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
 
-          <Button
-            sx={{ color: 'white' }}
-            onClick={() => i18n.changeLanguage('en')}
-          >
-            English
-          </Button>
-          <Button
-            sx={{ color: 'white' }}
-            onClick={() => i18n.changeLanguage('uk')}
-          >
-            Українська
-          </Button>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -175,7 +165,7 @@ function Header() {
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
+              flexGrow: 0,
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
@@ -221,6 +211,26 @@ function Header() {
             )}
           </Box>
         </Toolbar>
+        <Box
+          sx={{
+            display: { xs: 'flex', md: 'block' },
+            flexDirection: { xs: 'column', md: 'row' },
+            mr: 1,
+          }}
+        >
+          <Button
+            sx={{ color: 'white' }}
+            onClick={() => i18n.changeLanguage('en')}
+          >
+            English
+          </Button>
+          <Button
+            sx={{ color: 'white' }}
+            onClick={() => i18n.changeLanguage('uk')}
+          >
+            Українська
+          </Button>
+        </Box>
       </Container>
     </AppBar>
   );

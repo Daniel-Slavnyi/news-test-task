@@ -16,6 +16,7 @@ let initialState = {
   isLoggedIn: false,
   error: null,
   isLoading: false,
+  message: false,
 };
 
 const authSlice = createSlice({
@@ -33,9 +34,11 @@ const authSlice = createSlice({
         state.token = action.payload.token;
         state.isLoggedIn = true;
         state.isLoading = false;
+        state.message = false;
       })
       .addCase(register.rejected, (state, action) => {
         state.error = action.payload;
+        state.message = true;
       })
       // login
       .addCase(login.pending, state => {
@@ -47,9 +50,11 @@ const authSlice = createSlice({
         state.token = action.payload.token;
         state.isLoggedIn = true;
         state.isLoading = false;
+        state.message = false;
       })
       .addCase(login.rejected, (state, action) => {
         state.error = action.payload;
+        state.message = true;
       })
       // refreh
       .addCase(refresh.fulfilled, (state, action) => {

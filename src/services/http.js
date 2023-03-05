@@ -5,7 +5,7 @@ export const authUser = axios.create({
 });
 
 export const news = axios.create({
-  baseURL: 'https://newsapi.org/v2/everything',
+  baseURL: 'https://jsonplaceholder.typicode.com',
 });
 
 export const token = {

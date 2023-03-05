@@ -12,6 +12,7 @@ export const signUpUser = async body => {
 export const loginUser = async body => {
   try {
     const { data } = await authUser.post('/users/login', body);
+
     return data;
   } catch (error) {
     return error;

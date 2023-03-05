@@ -12,6 +12,9 @@ export const register = createAsyncThunk(
   async (objData, thunkAPI) => {
     try {
       const res = await signUpUser(objData);
+      if (res.code === 'ERR_BAD_REQUEST') {
+        throw new Error();
+      }
       token.set(res.token);
       return res;
     } catch (error) {
@@ -25,6 +28,9 @@ export const login = createAsyncThunk(
   async (objData, thunkAPI) => {
     try {
       const res = await loginUser(objData);
+      if (res.code === 'ERR_BAD_REQUEST') {
+        throw new Error();
+      }
       token.set(res.token);
       return res;
     } catch (error) {

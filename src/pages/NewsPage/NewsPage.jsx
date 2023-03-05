@@ -21,9 +21,9 @@ export default function NewsPage() {
   return (
     <>
       <Container>
-        <Grid container spacing={2}>
+        <Grid container spacing={4} sx={{ mt: 1, mb: 2 }}>
           {listOfNews.map(item => (
-            <ItemsNews key={item.url} item={item} />
+            <ItemsNews key={item.id} item={item} />
           ))}
         </Grid>
         <Button
