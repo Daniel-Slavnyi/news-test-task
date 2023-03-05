@@ -8,6 +8,10 @@ export const news = axios.create({
   baseURL: 'https://jsonplaceholder.typicode.com',
 });
 
+export const picture = axios.create({
+  baseURL: 'https://pixabay.com/api/',
+});
+
 export const token = {
   set: token => {
     authUser.defaults.headers.Authorization = `Bearer ${token}`;

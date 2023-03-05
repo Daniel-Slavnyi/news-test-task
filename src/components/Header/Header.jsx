@@ -129,6 +129,7 @@ function Header() {
               {pages.map(page => (
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
                   <Typography
+                    to={page.link}
                     sx={{
                       color: !theme ? 'white' : 'black',
                       textDecoration: 'none',
