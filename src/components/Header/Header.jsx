@@ -141,20 +141,32 @@ function Header() {
                   </Typography>
                 </MenuItem>
               ))}
-              {authLink.map(page => (
-                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                  <Typography
-                    sx={{
-                      color: !theme ? 'white' : 'black',
-                      textDecoration: 'none',
-                    }}
-                    component={Link}
-                    textAlign="center"
-                  >
-                    {t(page.name)}
-                  </Typography>
-                </MenuItem>
-              ))}
+              {!isLogdeIn ? (
+                authLink.map(page => (
+                  <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                    <Typography
+                      to={page.link}
+                      sx={{
+                        color: !theme ? 'white' : 'black',
+                        textDecoration: 'none',
+                      }}
+                      component={Link}
+                      textAlign="center"
+                    >
+                      {t(page.name)}
+                    </Typography>
+                  </MenuItem>
+                ))
+              ) : (
+                <Button
+                  onClick={handleExitFromProfile}
+                  sx={{
+                    color: !theme ? 'white' : 'black',
+                  }}
+                >
+                  {t('logout')}
+                </Button>
+              )}
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
